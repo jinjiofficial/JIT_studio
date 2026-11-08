@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eeeee9">
+<meta name="color-scheme" content="light">
+<meta name="description" content="JIT Studio — Independent technology studio. Technology should feel human.">
+<title>JIT STUDIO — Technology should feel human.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#eeeee9;--ink:#111210;--muted:#777972;--line:rgba(17,18,16,.16);--dark:#111210;--accent:#435bd8;--accent-soft:rgba(67,91,216,.13);--ease:cubic-bezier(.22,.72,.18,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--paper)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,Pretendard,Arial,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit;text-decoration:none}
+.topbar{position:fixed;inset:0 0 auto;z-index:30;height:82px;padding:0 4.6vw;display:flex;align-items:center;justify-content:space-between;color:#f3f3ed;mix-blend-mode:difference;pointer-events:none}
+.brand{display:flex;align-items:center;gap:12px;font-size:11px;font-weight:800;letter-spacing:.19em;pointer-events:auto}
+.brand img{display:block;width:31px;height:31px;object-fit:contain}
+.brand-fallback{display:none;width:31px;height:31px;place-items:center;border:1px solid currentColor;font-size:17px;font-weight:800;letter-spacing:-.1em}
+.top-meta,.mono,.eyebrow,.section-index,.hero-foot,.project-meta,footer{font-family:'DM Mono',monospace}
+.top-meta{font-size:9px;letter-spacing:.15em;opacity:.78}
+.hero{height:100svh;min-height:620px;position:relative;isolation:isolate;overflow:hidden;display:grid;place-items:center;background:var(--paper)}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 48%,rgba(255,255,255,.92),transparent 53%),linear-gradient(115deg,transparent 40%,rgba(255,255,255,.38) 50%,transparent 60%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;opacity:.18;pointer-events:none;background-image:linear-gradient(to right,transparent calc(25% - .5px),var(--line) 25%,transparent calc(25% + .5px),transparent calc(50% - .5px),var(--line) 50%,transparent calc(50% + .5px),transparent calc(75% - .5px),var(--line) 75%,transparent calc(75% + .5px));mask-image:linear-gradient(to bottom,transparent,black 18%,black 80%,transparent)}
+.hero-copy{position:absolute;z-index:5;left:50%;top:50%;width:min(94vw,1500px);transform:translate(-50%,-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:clamp(17px,2.2vh,28px);pointer-events:none}
+.eyebrow{font-size:9px;letter-spacing:.25em;font-weight:500;color:#777a73;line-height:1.5;display:flex;align-items:center;gap:10px}.eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent-soft)}
+.headline{width:100%;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.025em;font-weight:800;line-height:.88;letter-spacing:-.095em;text-transform:uppercase}
+.headline .line{display:block;width:100%;white-space:nowrap;text-align:center;will-change:transform,opacity;overflow:visible}
+.headline .top{font-size:clamp(44px,11.5vw,166px)}
+.headline .bottom{font-size:clamp(30px,7.8vw,112px);letter-spacing:-.085em}
+.hero-copy .eyebrow{transition:opacity .5s ease,transform .7s var(--ease)}
+#scene{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+.hero-light{position:absolute;z-index:2;left:50%;top:50%;width:min(70vw,820px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.62),rgba(255,255,255,.15) 42%,transparent 70%);filter:blur(18px);pointer-events:none}
+.hint{position:absolute;z-index:7;right:4.6vw;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font:9px 'DM Mono',monospace;letter-spacing:.18em;color:#777a73}
+.hero-foot{position:absolute;z-index:8;left:4.6vw;right:4.6vw;bottom:30px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;font-size:9px;letter-spacing:.12em;color:#777a73}
+.hero-foot span:nth-child(2){justify-self:center;display:flex;align-items:center;gap:12px}
+.hero-foot span:last-child{justify-self:end}
+.scroll-line{display:inline-block;width:36px;height:1px;background:currentColor;position:relative;overflow:hidden}
+.scroll-line:after{content:"";position:absolute;inset:0;background:var(--accent);transform:translateX(-105%);animation:lineTravel 1.8s ease-in-out infinite}
+@keyframes lineTravel{55%,100%{transform:translateX(105%)}}
+.section{min-height:92svh;padding:15vh 9vw;display:flex;flex-direction:column;justify-content:center;position:relative}
+.section-index{font-size:9px;letter-spacing:.2em;color:var(--muted);margin-bottom:clamp(32px,6vh,72px)}.section-index:before{content:"";display:inline-block;width:17px;height:1px;background:var(--accent);vertical-align:middle;margin:0 10px 3px 0}
+.statement{max-width:1180px;margin:0;font-size:clamp(42px,7.4vw,108px);line-height:.99;letter-spacing:-.075em;font-weight:700}
+.statement em{font-style:normal;color:var(--accent)}
+.statement-reveal{overflow:hidden}
+.statement-reveal span{display:block;transform:translateY(110%);transition:transform 1s var(--ease)}
+.statement-reveal.in-view span{transform:translateY(0)}
+.statement-reveal:nth-child(3) span{transition-delay:.1s}
+.philosophy-note{align-self:flex-end;max-width:260px;margin:55px 3vw 0 0;color:#777a73;font-size:12px;line-height:1.8}
+.work{background:var(--dark);color:#f0f0eb;padding:13vh 8vw 10vh;min-height:100vh}
+.work .section-index{color:#85877f}
+.work-head{display:flex;align-items:flex-end;justify-content:space-between;gap:35px;margin-bottom:65px}
+.work-head h2{font-size:clamp(58px,10vw,142px);line-height:.78;letter-spacing:-.095em;margin:0;font-weight:800}
+.work-head p{max-width:240px;margin:0 0 5px;color:#999b94;font-size:12px;line-height:1.8}
+.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.project-card{min-height:310px;border:1px solid #383a35;padding:27px 29px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:border-color .45s,background .45s;isolation:isolate}
+.project-card:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(130deg,rgba(255,255,255,.09),transparent 45%);opacity:0;transition:opacity .5s}
+.project-card:hover{border-color:var(--accent);background:#191b18}.project-card:hover:before{opacity:1}
+.project-meta{font-size:9px;letter-spacing:.15em;color:#93958d}
+.project-card h3{font-size:clamp(42px,6vw,82px);letter-spacing:-.08em;margin:0;font-weight:800;line-height:1}
+.project-card p{margin:12px 0 0;color:#a7a9a1;font-size:12px;line-height:1.6}
+.card-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.card-arrow{width:36px;height:36px;border:1px solid #55574f;border-radius:50%;display:grid;place-items:center;font-size:16px;transition:transform .4s,background .4s,color .4s}
+.project-card:hover .card-arrow{transform:rotate(45deg);background:var(--accent);border-color:var(--accent);color:#fff}
+.contact{min-height:72vh;padding:14vh 8vw 10vh;display:flex;flex-direction:column;justify-content:space-between}
+.contact-title{font-size:clamp(52px,10vw,140px);font-weight:800;letter-spacing:-.09em;line-height:.85;margin:0 0 45px}
+.contact-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:25px}
+.contact-bottom p{font-size:13px;line-height:1.8;color:#777a73;max-width:300px;margin:0}
+.contact-mark{font:10px 'DM Mono',monospace;letter-spacing:.12em;border-bottom:1px solid var(--accent);padding-bottom:8px}
+footer{background:var(--dark);color:#b6b8b0;padding:28px 8vw;display:flex;justify-content:space-between;gap:20px;font-size:9px;letter-spacing:.12em}
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .9s ease,transform .9s var(--ease)}
+.reveal.in-view{opacity:1;transform:translateY(0)}
+@media(max-width:760px){
+ .topbar{height:68px;padding:0 6vw}.top-meta{display:none}.hero{min-height:590px}.hero-copy{width:94vw;gap:22px}.headline .top{font-size:clamp(39px,11.8vw,82px)}.headline .bottom{font-size:clamp(26px,7.65vw,56px);letter-spacing:-.075em}.eyebrow{font-size:8px;letter-spacing:.18em}.hint{right:3vw;font-size:8px}.hero-foot{left:6vw;right:6vw;bottom:23px;font-size:8px;grid-template-columns:1fr auto}.hero-foot span:nth-child(2){display:none}.section{min-height:78svh;padding:13vh 7vw}.statement{font-size:clamp(39px,9vw,72px)}.philosophy-note{margin:42px 0 0;align-self:flex-start}.work{padding:12vh 7vw 8vh}.work-head{display:block;margin-bottom:42px}.work-head h2{font-size:clamp(58px,14vw,100px)}.work-head p{margin-top:28px}.project-grid{grid-template-columns:1fr}.project-card{min-height:245px;padding:23px}.project-card h3{font-size:58px}.contact{min-height:65vh;padding:12vh 7vw 9vh}.contact-title{font-size:clamp(52px,13vw,92px)}.contact-bottom{align-items:flex-start;flex-direction:column}footer{padding:27px 7vw;flex-direction:column;gap:10px}
+}
+@media(max-width:390px){.headline .top{font-size:11.2vw}.headline .bottom{font-size:7.15vw}.hero-foot{font-size:7px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <a class="brand" href="#top" aria-label="JIT Studio home">
+  <img src="logo.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+  <span class="brand-fallback">J</span><span>JIT STUDIO</span>
+ </a>
+ <div class="top-meta">INDEPENDENT TECHNOLOGY STUDIO&nbsp;&nbsp; / &nbsp;&nbsp;2026</div>
+</header>
+<main id="top">
+ <section class="hero" id="hero">
+  <div class="hero-grid"></div><div class="hero-light" id="heroLight"></div>
+  <div class="hero-copy" id="heroCopy">
+   <div class="eyebrow" id="eyebrow">INDEPENDENT TECHNOLOGY STUDIO</div>
+   <h1 class="headline" aria-label="Technology should feel human">
+    <span class="line top" id="headlineTop">TECHNOLOGY</span>
+    <span class="line bottom" id="headlineBottom">SHOULD FEEL HUMAN.</span>
+   </h1>
+  </div>
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="hint">SCROLL TO REVEAL THE FORM</div>
+  <div class="hero-foot"><span>JIT STUDIO © 2026</span><span><i class="scroll-line"></i> SCROLL TO EXPLORE</span><span>01 — 04</span></div>
+ </section>
+ <section class="section" id="philosophy">
+  <div class="section-index">01 / PHILOSOPHY</div>
+  <h2 class="statement"><span class="statement-reveal"><span>Technology is not</span></span><span class="statement-reveal"><span>the destination.</span></span><span class="statement-reveal"><span><em>People are.</em></span></span></h2>
+  <p class="philosophy-note reveal">We believe technology matters most when it understands the people who use it.</p>
+ </section>
+ <section class="work" id="work">
+  <div class="section-index">02 / SELECTED WORK</div>
+  <div class="work-head reveal"><h2>BUILT<br>WITH INTENT.</h2><p>Ideas become useful when thoughtful design meets engineering.</p></div>
+  <div class="project-grid">
+   <article class="project-card reveal"><div class="project-meta">EDUCATION / WEB&nbsp;&nbsp; · &nbsp;&nbsp;001</div><div class="card-bottom"><div><h3>SOLVIT</h3><p>Learning experiences, made interactive.</p></div><span class="card-arrow">↗</span></div></article>
+   <article class="project-card reveal"><div class="project-meta">DESKTOP / LINUX&nbsp;&nbsp; · &nbsp;&nbsp;002</div><div class="card-bottom"><div><h3>ANTHROIS</h3><p>A more human way to experience technology.</p></div><span class="card-arrow">↗</span></div></article>
+  </div>
+ </section>
+ <section class="contact" id="contact">
+  <div><div class="section-index">03 / THE STUDIO</div><h2 class="contact-title reveal">TECHNOLOGY<br>SHOULD FEEL<br>HUMAN.</h2></div>
+  <div class="contact-bottom"><p>Independent ideas.<br>Thoughtful experiences.<br>Built with intent.</p><span class="contact-mark">JINJI’S IT STUDIO&nbsp;&nbsp; / &nbsp;&nbsp;EST. 2026</span></div>
+ </section>
+</main>
+<footer><span>JIT STUDIO</span><span>TECHNOLOGY SHOULD FEEL HUMAN.</span><span>© 2026 — ALL RIGHTS RESERVED</span></footer>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
+import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js';
+gsap.registerPlugin(ScrollTrigger);
+
+const canvas=document.querySelector('#scene');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));
+renderer.setSize(innerWidth,innerHeight);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.12;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(31,innerWidth/innerHeight,.1,100);
+camera.position.set(0,0,11.5);
+scene.add(new THREE.HemisphereLight(0xffffff,0x777a82,2.0));
+const key=new THREE.DirectionalLight(0xffffff,5.2);key.position.set(-4,6,7);scene.add(key);
+const rim=new THREE.DirectionalLight(0xc7d1e0,4.2);rim.position.set(5,2,-5);scene.add(rim);
+const edge=new THREE.PointLight(0xffffff,32,18);edge.position.set(-1,-3,5);scene.add(edge);
+const sweep=new THREE.PointLight(0x435bd8,0,15);sweep.position.set(-5,1,4);scene.add(sweep);
+
+// JIT signature mark: a precise architectural monogram with a continuous, broad return.
+// The silhouette is deliberately simpler and more substantial; the cobalt inlay is its only accent.
+const markShape=new THREE.Shape();
+markShape.moveTo(-1.02,2.55);
+markShape.lineTo(1.02,2.55);
+markShape.lineTo(1.02,-.78);
+markShape.bezierCurveTo(1.02,-2.35,.12,-3.12,-1.38,-3.12);
+markShape.bezierCurveTo(-2.78,-3.12,-3.48,-2.28,-3.48,-1.08);
+markShape.lineTo(-3.48,-.42);
+markShape.lineTo(-2.22,-.42);
+markShape.lineTo(-2.22,-1.08);
+markShape.bezierCurveTo(-2.22,-1.62,-1.91,-1.91,-1.34,-1.91);
+markShape.bezierCurveTo(-.66,-1.91,-.16,-1.51,-.16,-.72);
+markShape.lineTo(-.16,1.48);
+markShape.lineTo(-1.02,1.48);
+markShape.closePath();
+const markGeo=new THREE.ExtrudeGeometry(markShape,{depth:.72,bevelEnabled:true,bevelSegments:8,steps:1,bevelSize:.13,bevelThickness:.14,curveSegments:48});
+markGeo.computeVertexNormals();
+markGeo.center();
+const markMat=new THREE.MeshPhysicalMaterial({color:0x343943,metalness:.82,roughness:.23,clearcoat:1,clearcoatRoughness:.12});
+const mark=new THREE.Mesh(markGeo,markMat);
+mark.scale.setScalar(0);mark.rotation.set(-.06,.18,.015);scene.add(mark);
+// A restrained cobalt inlay gives the symbol a recognizable brand signature.
+const inlayMat=new THREE.MeshBasicMaterial({color:0x435bd8});
+const inlay=new THREE.Mesh(new THREE.BoxGeometry(.075,2.45,.035),inlayMat);
+inlay.position.set(.48,.05,.39);mark.add(inlay);
+const topInlay=new THREE.Mesh(new THREE.BoxGeometry(1.25,.055,.035),inlayMat);
+topInlay.position.set(.08,1.18,.39);mark.add(topInlay);
+const floor=new THREE.Mesh(new THREE.CircleGeometry(2.8,96),new THREE.MeshBasicMaterial({color:0x777d87,transparent:true,opacity:.12}));
+floor.scale.set(1.65,.25,1);floor.position.set(0,-2.75,-1.5);scene.add(floor);
+
+const top=document.querySelector('#headlineTop'),bottom=document.querySelector('#headlineBottom'),copy=document.querySelector('#heroCopy'),light=document.querySelector('#heroLight');
+const isMobile=matchMedia('(max-width:760px)').matches;
+const motionOK=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+let scrollProgress=0;
+if(motionOK){
+ const reveal=gsap.timeline({scrollTrigger:{trigger:'.hero',start:'top top',end:'+=210%',scrub:1.15,pin:true,anticipatePin:1,invalidateOnRefresh:true,onUpdate:s=>{scrollProgress=s.progress;}}});
+ reveal.to(copy,{opacity:0,duration:.12,ease:'none'},0)
+  .to(top,{yPercent:-190,xPercent:-2.5,rotateX:22,filter:'blur(8px)',duration:.32,ease:'power2.in'},.03)
+  .to(bottom,{yPercent:190,xPercent:2.5,rotateX:-22,filter:'blur(8px)',duration:.32,ease:'power2.in'},.03)
+  .fromTo(mark.scale,{x:0,y:0,z:0},{x:.94,y:.94,z:.94,duration:.34,ease:'back.out(1.35)'},.18)
+  .to(mark.rotation,{x:.12,y:Math.PI*2+.38,z:-.16,duration:.9,ease:'none'},0)
+  .to(mark.position,{y:.12,z:.2,duration:.45,ease:'power2.inOut'},.18)
+  .to(camera.position,{z:7.1,duration:.72,ease:'power2.inOut'},.12)
+  .to(sweep.position,{x:4.8,y:1.2,z:4,duration:.75,ease:'none'},.12)
+  .to(sweep,{intensity:58,duration:.22,ease:'power2.out'},.24)
+  
+  .to(mark.rotation,{y:Math.PI*2+.38,z:.08,duration:.25,ease:'power2.inOut'},.68)
+  .to(mark.scale,{x:.58,y:.58,z:.58,duration:.2,ease:'power2.in'},.82)
+  .to(mark.position,{x:isMobile?0:3.05,y:isMobile?-.15:0,z:-1.2,duration:.2,ease:'power2.in'},.82)
+  .to(camera.position,{x:isMobile?0:-1.2,z:8.2,duration:.2,ease:'power2.inOut'},.82)
+  .to(light,{opacity:0,duration:.3},.72);
+}else{
+ // Reduced-motion mode still respects the staged reveal, without animated movement.
+ addEventListener('scroll',()=>{if(scrollY>Math.max(40,innerHeight*.08))mark.scale.setScalar(.78);},{passive:true,once:true});
+}
+// Reveal content only when it enters the viewport.
+const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in-view');io.unobserve(entry.target);}}),{threshold:.18});
+document.querySelectorAll('.reveal,.statement-reveal').forEach(el=>io.observe(el));
+function resize(){const w=innerWidth,h=innerHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));ScrollTrigger.refresh();}
+addEventListener('resize',resize,{passive:true});
+const clock=new THREE.Clock();
+function render(){requestAnimationFrame(render);const t=clock.getElapsedTime();if(scrollProgress<.001){mark.rotation.y=.2+Math.sin(t*.32)*.055;mark.rotation.x=-.08+Math.sin(t*.24)*.025;mark.position.y=Math.sin(t*.55)*.045;edge.intensity=30+Math.sin(t*.7)*4;}renderer.render(scene,camera);}
+render();
+</script>
+</body>
+</html>
